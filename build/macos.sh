@@ -1,4 +1,12 @@
 #!/bin/bash
+running=$(ps aux | grep 'lstna.app' | grep -v 'grep'  | wc -l)
+
+if [ $running -gt 0 ]; then
+	# lstna is already running
+	pid=$(ps aux | grep 'lstna.app' | grep -v 'grep' | awk '{print $2}')
+	kill -9 $pid
+fi
+
 cd www
 npm run build
 cd ..
